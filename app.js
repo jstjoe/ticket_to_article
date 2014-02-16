@@ -3,7 +3,7 @@
   return {
     events: {
       'app.activated':'init',
-      'getUser.done':'getComments',
+      'getUser.done':'fetchComments',
       'getComments.done':'renderComments',
       'click .comment':'onCommentClick',
       'click .post_article':'onPostClick',
@@ -28,6 +28,14 @@
           proxy_v2: true
         };
       },
+      getSections: function(html) {
+        return {
+          url: '/api/v2/help_center/sections.json?include=categories,translations',
+          dataType: 'JSON',
+          type: 'GET',
+          proxy_v2: true
+        };
+      },
       postArticle: function (article, section) {
         return {
           url: helpers.fmt('/api/v2/help_center/sections/%@/articles.json',section),
@@ -42,7 +50,7 @@
     init: function() {
       this.ajax('getUser');
     },
-    getComments: function(data) {
+    fetchComments: function(data) {
       var currentUser = data.user;
       if (currentUser.moderator === true) {
       this.ajax('getComments');
@@ -64,9 +72,27 @@
       //get available sections, and when that finishes switch to the show_comment template with the comment and sections
       var id = data.currentTarget.id,
           innerHtml = data.currentTarget.innerHTML.trim();
-          html = innerHtml.slice(0, - 29);
-      this.switchTo('show_comment', {
-        comment: html
+          comment = innerHtml.slice(0, - 29);
+      this.ajax('getSections')
+      .done(function(response){
+        var sections = response.sections,
+            categories = response.categories,
+            translations = response.translations;
+        _.each(sections, function(section) {
+          //add translations titles to sections
+          section.translations = new Array();
+          _.each(section.translation_ids, function(id) {
+            var translation = _.find(translations, function(obj) {
+              return obj.id == id;
+            });
+            section.translations.push(translation.title);
+            console.log(section.translations);
+          });
+        });
+        this.switchTo('show_comment', {
+          comment: comment,
+          sections: sections
+        });
       });
     },
     onPostClick: function() {
