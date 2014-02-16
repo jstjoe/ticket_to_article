@@ -1,0 +1,26 @@
+<ul class="category_list">
+  <li>
+    <a href="#" class="back_to_comments">Cancel</a>
+  </li>
+  <br>
+  <li>
+    <select class="section" name="select" required>
+      <option></option>
+      {{#each categories}}
+        {{#if sections}}
+            <option class="category" disabled>{{#each translations}}{{this.title}} ({{this.locale}})  {{/each}}</option>
+            {{#each sections}}
+              <option class="section" value="{{this.id}}">
+                {{#each translations}}{{this.title}} ({{this.locale}})  {{/each}}
+              </option>
+            {{/each}}
+          <br>
+        {{/if}}
+      {{/each}}
+    </select>
+  </li>
+  <br>
+  <li>
+    <a href="#" class="select_section">Select Section</a>
+  </li>
+</ul>

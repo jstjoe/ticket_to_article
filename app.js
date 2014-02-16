@@ -6,7 +6,8 @@
       'getUser.done':'fetchComments',
       'getComments.done':'renderComments',
       'click .comment':'onCommentClick',
-      'click .post_article':'onPostClick',
+      'click .done_editing':'onDoneEditingClick',
+      'click .select_section':'onPostClick',
       'click .back_to_comments':function(event) {
         this.ajax('getComments');
       }
@@ -73,25 +74,47 @@
       var id = data.currentTarget.id,
           innerHtml = data.currentTarget.innerHTML.trim();
           comment = innerHtml.slice(0, - 29);
+      this.switchTo('show_comment', {
+          comment: comment
+      });
+    },
+    onDoneEditingClick: function () {
       this.ajax('getSections')
       .done(function(response){
         var sections = response.sections,
             categories = response.categories,
             translations = response.translations;
+        _.each(categories, function(category) {
+          category.sections = new Array();
+          //add category titles to categories
+          category.translations = new Array();
+          _.each(category.translation_ids, function(id) {
+            var translation = _.find(translations, function(obj) {
+              return obj.id == id;
+            });
+            category.translations.push(translation);
+            console.log("Category translations: " + translation.title);
+          });
+        });
         _.each(sections, function(section) {
-          //add translations titles to sections
+          //add translation titles to sections
           section.translations = new Array();
           _.each(section.translation_ids, function(id) {
             var translation = _.find(translations, function(obj) {
               return obj.id == id;
             });
-            section.translations.push(translation.title);
-            console.log(section.translations);
+            section.translations.push(translation);
+            //console.log("Section translations: " + section.translations);
           });
+          //add sections to categories
+          var category = _.find(categories, function(obj) {
+            return obj.id == section.category_id;
+          });
+          category.sections.push(section);
+          console.log(category.sections);
         });
-        this.switchTo('show_comment', {
-          comment: comment,
-          sections: sections
+        this.switchTo('article_options', {
+          categories: categories
         });
       });
     },
@@ -105,7 +128,7 @@
           article = helpers.fmt(
             '{"article": {"draft": %@, "promoted": %@, "comments_disabled": %@, "translations": [{"locale": "%@", "title": "%@", "body": "%@"}]}}',
             draft,promoted,comments_disabled,locale,title,html),
-          section = 48465;
+          section = this.$('select.section').val();
       this.ajax('postArticle', article, section);
     }
   };

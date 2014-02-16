@@ -8,6 +8,6 @@
   </li>
   <br>
   <li>
-    <a href="#" class="post_article">Post</a>
+    <a href="#" class="open_modal">Open editor</a> | <a href="#" class="done_editing">Done editing</a>
   </li>
 </ul>
