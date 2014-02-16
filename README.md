@@ -1,4 +1,15 @@
-ticket_to_article
-=================
+# App name
 
-An attempt to create an app with a smooth experience for posting a comment from a ticket as a Help Center article.
+[brief description of the app]
+
+### The following information is displayed:
+
+* info1
+* info2
+* info3
+
+Please submit bug reports to [Insert Link](). Pull requests are welcome.
+
+### Screenshot(s):
+[put your screenshots down here.]
+
