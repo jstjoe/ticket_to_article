@@ -1,0 +1,7 @@
+<ul class="comment_list">
+  {{#each comments}}
+    {{#if public}}
+      <li class="comment" id="{{id}}">{{{html_body}}}<em>{{created_at}}</em></li>
+    {{/if}}
+  {{/each}}
+</ul>

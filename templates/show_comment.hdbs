@@ -1,0 +1,13 @@
+<ul class="show_comment">
+  <li>
+    <a href="#" class="back_to_comments">Back</a>
+  </li>
+  <br>
+  <li>
+    <textarea class="show_comment" contenteditable="true">{{comment}}</textarea>
+  </li>
+  <br>
+  <li>
+    <a href="#" class="post_article">Post</a>
+  </li>
+</ul>
