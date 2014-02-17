@@ -1,16 +1,20 @@
 (function() {
-
   return {
     events: {
       'app.activated':'init',
+      'click .default':function() {
+        this.ajax('getUser');
+      },
       'getUser.done':'fetchComments',
       'getComments.done':'renderComments',
       'click .comment':'onCommentClick',
       'click .done_editing':'onDoneEditingClick',
       'click .select_section':'onPostClick',
+      'click .open_editor':'onOpenEditorClick',
       'click .back_to_comments':function(event) {
         this.ajax('getComments');
-      }
+      },
+      'click .done':'init'
     },
     requests: {
       getUser: function() {
@@ -49,7 +53,7 @@
       }
     },
     init: function() {
-      this.ajax('getUser');
+      this.switchTo('default', {});
     },
     fetchComments: function(data) {
       var currentUser = data.user;
@@ -117,19 +121,39 @@
           categories: categories
         });
       });
+      //grab the title and make it global too
+      this.title = this.$('input.title').val();
+      this.html = this.$('textarea.show_comment').text();
+    },
+    onOpenEditorClick: function() {
+      var title = encodeURIComponent(this.$('input.title').val());
+      var body = encodeURIComponent(this.$('textarea.show_comment').text());
+      var url = helpers.fmt('https://joeshelpcenter.zendesk.com/hc/admin/articles/new?title=%@&body=%@',title,body);
+      this.switchTo('editor_link', {
+        url: url
+      });
     },
     onPostClick: function() {
-      var html = this.$('textarea.show_comment').text(),
-          draft = true,
-          promoted = false,
-          comments_disabled = false,
-          locale = 'en-us',
-          title = 'Title',
+      var labels = '[]',
+          draft = this.$('input.draft').prop("checked"),
+          promoted = this.$('input.promoted').prop("checked"),
+          comments_disabled = this.$('input.comments_disabled').prop("checked"),
+          locale = 'en-us', //this.$('input.locale').val();
+          title = (this.title || '-no title specified-'),
+          body = this.html,
           article = helpers.fmt(
-            '{"article": {"draft": %@, "promoted": %@, "comments_disabled": %@, "translations": [{"locale": "%@", "title": "%@", "body": "%@"}]}}',
-            draft,promoted,comments_disabled,locale,title,html),
+            '{"article": {"labels": %@,  "draft": %@, "promoted": %@, "comments_disabled": %@, "translations": [{"locale": "%@", "title": "%@", "body": "%@"}]}}',
+            labels,draft,promoted,comments_disabled,locale,title,body),
           section = this.$('select.section').val();
-      this.ajax('postArticle', article, section);
+      this.ajax('postArticle', article, section)
+      .done(function(response){
+        var postedArticle = response.article,
+            translations = response.translations;
+        this.switchTo('show_article', {
+          article: postedArticle,
+          translations: translations
+        });
+      });
     }
   };
 }());

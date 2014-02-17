@@ -1,9 +1,7 @@
 <ul class="category_list">
+  <form>
   <li>
-    <a href="#" class="back_to_comments">Cancel</a>
-  </li>
-  <br>
-  <li>
+    Choose a section: 
     <select class="section" name="select" required>
       <option></option>
       {{#each categories}}
@@ -11,7 +9,7 @@
             <option class="category" disabled>{{#each translations}}{{this.title}} ({{this.locale}})  {{/each}}</option>
             {{#each sections}}
               <option class="section" value="{{this.id}}">
-                {{#each translations}}{{this.title}} ({{this.locale}})  {{/each}}
+                {{#each translations}} - {{this.title}} ({{this.locale}})  {{/each}}
               </option>
             {{/each}}
           <br>
@@ -19,8 +17,15 @@
       {{/each}}
     </select>
   </li>
-  <br>
   <li>
-    <a href="#" class="select_section">Select Section</a>
+    <br>
+    Draft: <input type="checkbox" class="draft" name="draft" checked /> | 
+    Promoted: <input type="checkbox" class="promoted" name="promoted" value="true" /> | 
+    Disable Comments: <input type="checkbox" class="comments_disabled" name="comments_disabled" value="true" />
+  </li>
+  </form>
+  <br>
+  <li class="actions">
+    <a href="#" class="back_to_comments">Cancel</a> | <a href="#" class="select_section">Post to Section</a>
   </li>
 </ul>

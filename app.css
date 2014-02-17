@@ -1,18 +1,66 @@
+
 .comment {
+  border-bottom: 1px dotted lightgrey;
+  margin-bottom: 15px;
   p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;       /* force single line */
-    width: 300px;              /* fixed width */
-    height: 20px;
+    width: 310px;
+    max-height: 20px;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
   }
+  p:hover {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    width: 310px;
+    max-height: 800px;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+  }
+}
+ul {
+  margin: 0;
+  li.actions {
+    text-align: right;
+  }
+}
+ul.comment_list {
 }
 ul.show_comment {
   textarea {
-    border: 1px solid black;
     min-height: 200px;
     max-height: 700px;
-    width: 280px;
+    width: 310px;
+  }
+  .title {
+    width: 310px;
   }
 
 }
+select.section {
+  width: 310px;
+}
+ul.show_article {
+  li {
+    div.property {
+      display: inline-block;
+    }
+  }
+  li.article_links {
+      text-align: center;
+  } 
+  li.properties {
+      text-align: center;
+  }
+}
+
+

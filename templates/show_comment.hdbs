@@ -1,13 +1,12 @@
 <ul class="show_comment">
   <li>
-    <a href="#" class="back_to_comments">Back</a>
+    <input type="text" name="title" class="title" placeholder="Choose a title..."></input>
   </li>
-  <br>
   <li>
     <textarea class="show_comment" contenteditable="true">{{comment}}</textarea>
   </li>
   <br>
-  <li>
-    <a href="#" class="open_modal">Open editor</a> | <a href="#" class="done_editing">Done editing</a>
+  <li class="actions">
+    <a href="#" class="back_to_comments">Back</a> | <a href="#" class="open_editor">Open editor</a> | <a href="#" class="done_editing">Done editing</a>
   </li>
 </ul>
