@@ -6,10 +6,14 @@
         this.ajax('getUser');
       },
       'getUser.done':'fetchComments',
+      'getUser.fail':'getUserFail',
       'getComments.done':'renderComments',
+      'getComments.fail':'getCommentsFail',
       'click .comment':'onCommentClick',
+      'getSections.fail':'getSectionsFail',
       'click .done_editing':'onDoneEditingClick',
       'click .select_section':'onPostClick',
+      'postArticle.fail':'postArticleFail',
       'click .open_editor':'onOpenEditorClick',
       'click .back_to_comments':function(event) {
         this.ajax('getComments');
@@ -57,10 +61,15 @@
     },
     fetchComments: function(data) {
       var currentUser = data.user;
-      if (currentUser.moderator === true) {
-      this.ajax('getComments');
+      if (this.setting("restrict_to_moderators") === true) {
+        console.log('App is restricted to moderators');
+        if (currentUser.moderator === true) {
+          this.ajax('getComments');
+        } else {
+          services.notify('This app is currently restricted to moderators and you are not one. Please contact your Zendesk admin to get moderator privileges or get the app unrestricted.', 'error');
+        }
       } else {
-        //check for unrestricted sections and continue if true, if not show a message
+        this.ajax('getComments');
       }
     },
     renderComments: function(data) {
@@ -76,7 +85,7 @@
     onCommentClick: function(data) {
       //get available sections, and when that finishes switch to the show_comment template with the comment and sections
       var id = data.currentTarget.id,
-          innerHtml = data.currentTarget.innerHTML.trim();
+          innerHtml = data.currentTarget.innerHTML.trim(),
           comment = innerHtml.slice(0, - 29);
       this.switchTo('show_comment', {
           comment: comment
@@ -89,9 +98,9 @@
             categories = response.categories,
             translations = response.translations;
         _.each(categories, function(category) {
-          category.sections = new Array();
+           category.sections = [];
           //add category titles to categories
-          category.translations = new Array();
+          category.translations = [];
           _.each(category.translation_ids, function(id) {
             var translation = _.find(translations, function(obj) {
               return obj.id == id;
@@ -102,7 +111,7 @@
         });
         _.each(sections, function(section) {
           //add translation titles to sections
-          section.translations = new Array();
+          section.translations = [];
           _.each(section.translation_ids, function(id) {
             var translation = _.find(translations, function(obj) {
               return obj.id == id;
@@ -123,7 +132,7 @@
       });
       //grab the title and make it global too
       this.title = this.$('input.title').val();
-      this.html = this.$('textarea.show_comment').text();
+      this.html = this.$('textarea.show_comment').val();
     },
     onOpenEditorClick: function() {
       var title = encodeURIComponent(this.$('input.title').val());
@@ -140,7 +149,8 @@
           comments_disabled = this.$('input.comments_disabled').prop("checked"),
           locale = 'en-us', //this.$('input.locale').val();
           title = (this.title || '-no title specified-'),
-          body = this.html,
+          html_single_quotes = this.html.replace(/"/gm, "'"),
+          body = html_single_quotes.replace(/(\r\n|\n|\r)/gm," "), //remove line breaks
           article = helpers.fmt(
             '{"article": {"labels": %@,  "draft": %@, "promoted": %@, "comments_disabled": %@, "translations": [{"locale": "%@", "title": "%@", "body": "%@"}]}}',
             labels,draft,promoted,comments_disabled,locale,title,body),
@@ -149,11 +159,26 @@
       .done(function(response){
         var postedArticle = response.article,
             translations = response.translations;
+        console.log("Base URL: " + postedArticle.html_url);
+        postedArticle.admin_url = postedArticle.html_url.replace(/hc\/(.*?)\//gi, "hc/admin/");
+        console.log("Admin URL: " + postedArticle.admin_url);
         this.switchTo('show_article', {
           article: postedArticle,
           translations: translations
         });
       });
-    }
+    },
+    getUserFail: function(data) {
+      services.notify('Failed to get the current user for permission check. Please try reloading the app.');
+    },
+    getCommentsFail: function(data) {
+      services.notify('Failed to get the comments for the current ticket. Please try reloading the app.');
+    },
+    getSectionsFail: function(data) {
+      services.notify('Failed to get the available sections for the Help Center. Please try reloading the app.');
+    },
+    postArticleFail: function(data) {
+      services.notify('Failed to post to Help Center. Please check that you have permission to create an article in the chosen section and try reloading the app.');
+    },
   };
 }());

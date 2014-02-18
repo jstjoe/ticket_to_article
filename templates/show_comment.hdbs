@@ -7,6 +7,6 @@
   </li>
   <br>
   <li class="actions">
-    <a href="#" class="back_to_comments">Back</a> | <a href="#" class="open_editor">Open editor</a> | <a href="#" class="done_editing">Done editing</a>
+    <a href="#" class="back_to_comments">Back</a> | <!--<a href="#" class="open_editor">Open editor</a> | --><a href="#" class="done_editing">Next...</a>
   </li>
 </ul>

@@ -1,15 +1,20 @@
 <ul class="show_article">
   {{#each translations}}
     <li class="title"><h4>{{this.title}}</h4></li><br>
-    <li class="body">{{{this.body}}}</li>
+    <li class="body">{{{this.body}}}</li><br>
   {{/each}}
-  <li class="properties">
-    {{#if article.draft}}<div class="property">Draft</div> {{/if}} 
-    {{#if article.promoted}} <div class="property">Promoted</div> {{/if}} 
-    {{#if article.comments_disabled}} <div class="property">Disable Comments</div>{{/if}}
+  <li class="labels">
+
   </li>
+  <br>
+  <li class="properties">
+    {{#if article.draft}}<div class="property" id="draft">Draft</div> {{/if}} 
+    {{#if article.promoted}} <div class="property" id="promoted">Promoted</div> {{/if}} 
+    {{#if article.comments_disabled}} <div class="property" id="comments_disabled">Comments Disabled</div>{{/if}}
+  </li>
+  <br>
   <li class="article_links">
-    <a href="{{article.html_url}}" target="blank">View</a> | <a href="{{article.html_url}}/edit" target="blank">Edit</a>
+    <a href="{{article.html_url}}" target="blank">View</a> | <a href="{{article.admin_url}}/edit" target="blank">Edit</a>
   </li>
   <br>
   <li class="actions">

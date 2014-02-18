@@ -1,31 +1,30 @@
 
 .comment {
-  border-bottom: 1px dotted lightgrey;
+  border-bottom: 1px dotted gray;
   margin-bottom: 15px;
-  p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;       /* force single line */
     width: 310px;
-    max-height: 20px;
+    max-height: 40px;
     -webkit-transition: all 500ms ease;
     -moz-transition: all 500ms ease;
     -ms-transition: all 500ms ease;
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
-  }
-  p:hover {
+}
+.comment:hover {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
     width: 310px;
-    max-height: 800px;
+    max-height: 200px;
     -webkit-transition: all 500ms ease;
     -moz-transition: all 500ms ease;
     -ms-transition: all 500ms ease;
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
-  }
+  
 }
 ul {
   margin: 0;
@@ -53,6 +52,25 @@ ul.show_article {
   li {
     div.property {
       display: inline-block;
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: 3px;
+      font-weight: bold;
+    }
+    #draft {
+        background-color: rgb(245, 202, 0);
+    }
+    #promoted {
+        background-color: #78a300;
+    }
+    #comments_disabled {
+        background-color: rgb(232, 42, 42);
+    }
+    div.label {
+      display: inline-block;
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: 3px;
     }
   }
   li.article_links {

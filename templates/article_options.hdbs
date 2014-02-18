@@ -6,12 +6,13 @@
       <option></option>
       {{#each categories}}
         {{#if sections}}
-            <option class="category" disabled>{{#each translations}}{{this.title}} ({{this.locale}})  {{/each}}</option>
+            <optgroup class="category" label="{{#each translations}}{{this.title}} ({{this.locale}})  {{/each}}">
             {{#each sections}}
               <option class="section" value="{{this.id}}">
-                {{#each translations}} - {{this.title}} ({{this.locale}})  {{/each}}
+                {{#each translations}}{{this.title}} ({{this.locale}})  {{/each}}
               </option>
             {{/each}}
+            </optgroup>
           <br>
         {{/if}}
       {{/each}}
