@@ -6,7 +6,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;       /* force single line */
     width: 310px;
-    max-height: 40px;
+    max-height: 60px;
     -webkit-transition: all 500ms ease;
     -moz-transition: all 500ms ease;
     -ms-transition: all 500ms ease;
@@ -73,12 +73,24 @@ ul.show_article {
       padding: 3px;
     }
   }
+  li.title {
+    border: 1px solid grey;
+    border-radius:2px;
+    padding: 2px;
+  }
+  li.body {
+    border: 1px solid grey;
+    border-radius:2px;
+    padding: 2px;
+  }
+  li.properties {
+    text-align: center;
+    margin-bottom: 10px;
+  }
   li.article_links {
       text-align: center;
+      margin-bottom: 0;
   } 
-  li.properties {
-      text-align: center;
-  }
 }
 
 

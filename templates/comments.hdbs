@@ -2,7 +2,7 @@
   <h5>Comments: </h5><br>
   {{#each comments}}
     {{#if public}}
-      <li class="comment" id="{{id}}">{{{html_body}}}<em>{{created_at}}</em></li>
+      <li class="comment" id="{{id}}"><em>{{created_at}}</em>{{{html_body}}}</li>
     {{/if}}
   {{/each}}
 </ul>

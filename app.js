@@ -86,7 +86,7 @@
       //get available sections, and when that finishes switch to the show_comment template with the comment and sections
       var id = data.currentTarget.id,
           innerHtml = data.currentTarget.innerHTML.trim(),
-          comment = innerHtml.slice(0, - 29);
+          comment = innerHtml.slice(29);
       this.switchTo('show_comment', {
           comment: comment
       });
@@ -159,9 +159,8 @@
       .done(function(response){
         var postedArticle = response.article,
             translations = response.translations;
-        console.log("Base URL: " + postedArticle.html_url);
         postedArticle.admin_url = postedArticle.html_url.replace(/hc\/(.*?)\//gi, "hc/admin/");
-        console.log("Admin URL: " + postedArticle.admin_url);
+        services.notify(helpers.fmt("Your article (<a href='%@' target='blank'>#%@</a>) was created! \n <a href='%@/edit' target='blank'>Click here to edit it.</a>", postedArticle.html_url, postedArticle.id, postedArticle.admin_url));//fix!
         this.switchTo('show_article', {
           article: postedArticle,
           translations: translations

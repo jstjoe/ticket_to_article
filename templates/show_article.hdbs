@@ -6,17 +6,14 @@
   <li class="labels">
 
   </li>
-  <br>
   <li class="properties">
     {{#if article.draft}}<div class="property" id="draft">Draft</div> {{/if}} 
     {{#if article.promoted}} <div class="property" id="promoted">Promoted</div> {{/if}} 
     {{#if article.comments_disabled}} <div class="property" id="comments_disabled">Comments Disabled</div>{{/if}}
   </li>
-  <br>
   <li class="article_links">
     <a href="{{article.html_url}}" target="blank">View</a> | <a href="{{article.admin_url}}/edit" target="blank">Edit</a>
   </li>
-  <br>
   <li class="actions">
     <a href="#" class="done">Done</a>
   </li>
