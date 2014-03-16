@@ -2,16 +2,18 @@
   return {
     events: {
       'app.activated':'init',
-      'click .default':function() {
+      'click .default':function(e) {
+        if (e) { e.preventDefault(); }
         this.ajax('getUser');
       },
       'getUser.done':'fetchComments',
       'getUser.fail':'getUserFail',
       'getComments.done':'renderComments',
       'getComments.fail':'getCommentsFail',
-      'click .comment':'onCommentClick',
+      'click li.comment':'onCommentClick',
       'getSections.fail':'getSectionsFail',
       'click .done_editing':'onDoneEditingClick',
+      'change #section_select':'onSectionSelected',
       'click .select_section':'onPostClick',
       'postArticle.fail':'postArticleFail',
       'click .open_editor':'onOpenEditorClick',
@@ -75,23 +77,30 @@
     renderComments: function(data) {
       var comments = data.comments,
           users = data.users;
-      //_.each(comments, function(comment) {
-      //});
+      _.each(comments, function(comment) {
+        comment.created_at_local = new Date(comment.created_at).toLocaleString()
+        console.log(comment.created_at_local);
+      });
       this.switchTo('comments', {
         comments: comments,
         users: users
       });
     },
-    onCommentClick: function(data) {
+    onCommentClick: function(e) {
+      if (e) { e.preventDefault(); }
       //get available sections, and when that finishes switch to the show_comment template with the comment and sections
-      var id = data.currentTarget.id,
-          innerHtml = data.currentTarget.innerHTML.trim(),
-          comment = innerHtml.slice(0, - 29);
+      console.log(e.currentTarget.children[0]);
+      var id = e.currentTarget.children[0].id,
+          innerHtml = e.currentTarget.children[0].innerHTML,
+          comment = innerHtml,
+          ticket_id = this.ticket().id();
       this.switchTo('show_comment', {
-          comment: comment
+          comment: comment,
+          ticket_id: ticket_id
       });
     },
-    onDoneEditingClick: function () {
+    onDoneEditingClick: function (e) {
+      if (e) { e.preventDefault(); }
       this.ajax('getSections')
       .done(function(response){
         var sections = response.sections,
@@ -106,7 +115,7 @@
               return obj.id == id;
             });
             category.translations.push(translation);
-            console.log("Category translations: " + translation.title);
+            // console.log("Category translations: " + translation.title);
           });
         });
         _.each(sections, function(section) {
@@ -129,12 +138,21 @@
         this.switchTo('article_options', {
           categories: categories
         });
+        
       });
+      // 
       //grab the title and make it global too
       this.title = this.$('input.title').val();
       this.html = this.$('textarea.show_comment').val();
     },
-    onOpenEditorClick: function() {
+    onSectionSelected: function(e) {
+      //this isn't getting called yet
+      console.log("clicked an option");
+      this.$(".select_section").disabled = false;
+      this.$(".select_section").removeClass("disabled");
+    },
+    onOpenEditorClick: function(e) {
+      if (e) { e.preventDefault(); }
       var title = encodeURIComponent(this.$('input.title').val());
       var body = encodeURIComponent(this.$('textarea.show_comment').text());
       var url = helpers.fmt('https://joeshelpcenter.zendesk.com/hc/admin/articles/new?title=%@&body=%@',title,body);
@@ -142,13 +160,16 @@
         url: url
       });
     },
-    onPostClick: function() {
+    onPostClick: function(e) {
+      if (e) { e.preventDefault(); }
       var labels = '[]',
           draft = this.$('input.draft').prop("checked"),
           promoted = this.$('input.promoted').prop("checked"),
           comments_disabled = this.$('input.comments_disabled').prop("checked"),
           locale = 'en-us', //this.$('input.locale').val();
-          title = (this.title || '-no title specified-'),
+          ticket_id = this.ticket().id(),
+          default_title = helpers.fmt('Posted from ticket #%@ via Ticket to Help Center App', ticket_id)
+          title = (this.title || default_title),
           html_single_quotes = this.html.replace(/"/gm, "'"),
           body = html_single_quotes.replace(/(\r\n|\n|\r)/gm," "), //remove line breaks
           article = helpers.fmt(
@@ -162,6 +183,7 @@
         console.log("Base URL: " + postedArticle.html_url);
         postedArticle.admin_url = postedArticle.html_url.replace(/hc\/(.*?)\//gi, "hc/admin/");
         console.log("Admin URL: " + postedArticle.admin_url);
+        services.notify(helpers.fmt("Success! Your article has been posted to Help Center. Click the <a href='%@/edit' target='blank'>edit link</a> to make changes.",postedArticle.admin_url));
         this.switchTo('show_article', {
           article: postedArticle,
           translations: translations
@@ -169,16 +191,16 @@
       });
     },
     getUserFail: function(data) {
-      services.notify('Failed to get the current user for permission check. Please try reloading the app.');
+      services.notify('Failed to get the current user for permission check. Please try reloading the app.', 'error');
     },
     getCommentsFail: function(data) {
-      services.notify('Failed to get the comments for the current ticket. Please try reloading the app.');
+      services.notify('Failed to get the comments for the current ticket. Please try reloading the app.', 'error');
     },
     getSectionsFail: function(data) {
-      services.notify('Failed to get the available sections for the Help Center. Please try reloading the app.');
+      services.notify('Failed to get the available sections for the Help Center. Please try reloading the app.', 'error');
     },
     postArticleFail: function(data) {
-      services.notify('Failed to post to Help Center. Please check that you have permission to create an article in the chosen section and try reloading the app.');
+      services.notify('Failed to post to Help Center. Please check that you have permission to create an article in the chosen section and try reloading the app.', 'error');
     },
   };
 }());

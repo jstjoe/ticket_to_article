@@ -1,29 +1,32 @@
 
-.comment {
+li.comment {
   border-bottom: 1px dotted gray;
   margin-bottom: 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;       /* force single line */
-    width: 310px;
-    max-height: 40px;
-    -webkit-transition: all 500ms ease;
-    -moz-transition: all 500ms ease;
-    -ms-transition: all 500ms ease;
-    -o-transition: all 500ms ease;
-    transition: all 500ms ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;       /* force single line */
+  width: 310px;
+  max-height: 38px;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
+
 }
-.comment:hover {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    width: 310px;
-    max-height: 200px;
-    -webkit-transition: all 500ms ease;
-    -moz-transition: all 500ms ease;
-    -ms-transition: all 500ms ease;
-    -o-transition: all 500ms ease;
-    transition: all 500ms ease;
+li.comment:hover {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;       /* force single line */
+  width: 310px;
+  max-height: 200px;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
   
 }
 ul {

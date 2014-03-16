@@ -1,6 +1,5 @@
 <header>
   <span class="logo"/>
   <h3>{{setting "name"}}</h3>
-  <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 </header>
 <section data-main/>

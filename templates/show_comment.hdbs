@@ -1,12 +1,14 @@
 <ul class="show_comment">
   <li>
-    <input type="text" name="title" class="title" placeholder="Choose a title..."></input>
+    Title: <br>
+    <input type="text" name="title" class="title" placeholder="Posted from ticket #{{ticket_id}} via Ticket to Help Center App"></input>
   </li>
   <li>
+    HTML Body: <br>
     <textarea class="show_comment" contenteditable="true">{{comment}}</textarea>
   </li>
   <br>
   <li class="actions">
-    <a href="#" class="back_to_comments">Back</a> | <!--<a href="#" class="open_editor">Open editor</a> | --><a href="#" class="done_editing">Next...</a>
+    <a href="#" class="back_to_comments btn btn-small">Back</a> | <!--<a href="#" class="open_editor">Open editor</a> | --><a href="#" class="done_editing btn btn-primary btn-small">Next...</a>
   </li>
 </ul>
