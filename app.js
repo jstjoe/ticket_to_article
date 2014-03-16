@@ -20,6 +20,7 @@
       'click .back_to_comments':function(event) {
         this.ajax('getComments');
       },
+      'click #modal_toggle':'showModal',
       'click .done':'init'
     },
     requests: {
@@ -89,9 +90,9 @@
     onCommentClick: function(e) {
       if (e) { e.preventDefault(); }
       //get available sections, and when that finishes switch to the show_comment template with the comment and sections
-      console.log(e.currentTarget.children[0]);
-      var id = e.currentTarget.children[0].id,
-          innerHtml = e.currentTarget.children[0].innerHTML,
+      console.log(e.currentTarget.children[1]);
+      var id = e.currentTarget.children[1].id,
+          innerHtml = e.currentTarget.children[1].innerHTML,
           comment = innerHtml,
           ticket_id = this.ticket().id();
       this.switchTo('show_comment', {
@@ -168,7 +169,7 @@
           comments_disabled = this.$('input.comments_disabled').prop("checked"),
           locale = 'en-us', //this.$('input.locale').val();
           ticket_id = this.ticket().id(),
-          default_title = helpers.fmt('Posted from ticket #%@ via Ticket to Help Center App', ticket_id),
+          default_title = helpers.fmt('From ticket #%@ via Ticket to Help Center App', ticket_id),
           title = (this.title || default_title),
           html_single_quotes = this.html.replace(/"/gm, "'"),
           body = html_single_quotes.replace(/(\r\n|\n|\r)/gm," "), //remove line breaks
@@ -189,6 +190,9 @@
           translations: translations
         });
       });
+    },
+    showModal: function() {
+      this.$('#modal').modal('show');
     },
     getUserFail: function(data) {
       services.notify('Failed to get the current user for permission check. Please try reloading the app.', 'error');

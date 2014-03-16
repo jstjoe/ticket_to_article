@@ -1,10 +1,10 @@
-
 li.comment {
-  border-bottom: 1px dotted gray;
-  margin-bottom: 15px;
+  border-top: 1px dotted LightSlateGray;
+  padding-bottom: 15px;
+  padding-top: 10px;
+  margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;       /* force single line */
   width: 310px;
   max-height: 38px;
   -webkit-transition: all 500ms ease;
@@ -12,14 +12,17 @@ li.comment {
   -ms-transition: all 500ms ease;
   -o-transition: all 500ms ease;
   transition: all 500ms ease;
+  .time {
+    color: LightSlateGray;
+  }
 
 }
 li.comment:hover {
   cursor: pointer;
-  background-color: #f0f0f0;
+  background-color: rgba(120, 163, 0, 0.1);
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;       /* force single line */
+  
   width: 310px;
   max-height: 200px;
   -webkit-transition: all 500ms ease;
@@ -36,6 +39,10 @@ ul {
   }
 }
 ul.comment_list {
+  border-bottom: 1px solid LightSlateGray;
+  // border-top: 1px solid LightSlateGray;
+  padding: 0;
+  width: 310px;
 }
 ul.show_comment {
   textarea {
@@ -47,6 +54,35 @@ ul.show_comment {
     width: 310px;
   }
 
+}
+div#modal {
+  width: 80%;
+  height: 530px;
+  position: fixed;
+  left:10%;
+  right:10%;
+  top: 10%;
+  margin: 0;
+  padding: 0;
+  ul.show_comment_modal {
+    textarea {
+      min-height: 320px;
+      max-height: 1000px;
+      width: 98%;
+    }
+    .title {
+      width: 98%;
+    }
+  }
+  div.modal-body {
+    // height: 80%;
+  }
+  div.modal-footer {
+    // position: absolute;
+    // bottom: 0;
+    // left: 0 !important;
+    // width: 95%;
+  }
 }
 select.section {
   width: 310px;
