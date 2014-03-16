@@ -78,7 +78,7 @@
       var comments = data.comments,
           users = data.users;
       _.each(comments, function(comment) {
-        comment.created_at_local = new Date(comment.created_at).toLocaleString()
+        comment.created_at_local = new Date(comment.created_at).toLocaleString();
         console.log(comment.created_at_local);
       });
       this.switchTo('comments', {
@@ -168,7 +168,7 @@
           comments_disabled = this.$('input.comments_disabled').prop("checked"),
           locale = 'en-us', //this.$('input.locale').val();
           ticket_id = this.ticket().id(),
-          default_title = helpers.fmt('Posted from ticket #%@ via Ticket to Help Center App', ticket_id)
+          default_title = helpers.fmt('Posted from ticket #%@ via Ticket to Help Center App', ticket_id),
           title = (this.title || default_title),
           html_single_quotes = this.html.replace(/"/gm, "'"),
           body = html_single_quotes.replace(/(\r\n|\n|\r)/gm," "), //remove line breaks
