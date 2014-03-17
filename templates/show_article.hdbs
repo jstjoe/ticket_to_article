@@ -14,7 +14,7 @@
   </li>
   <br>
   <li class="article_links">
-    <a href="{{article.html_url}}" class="btn btn-small" target="blank">View</a> | <a href="{{article.admin_url}}/edit" class="btn btn-small" target="blank">Edit</a>
+    <a href="{{article.html_url}}" class="btn btn-small" target="blank">View</a> | <a href="{{article.edit_url}}" class="btn btn-small" target="blank">Edit</a>
   </li>
   <br>
   <li class="actions">

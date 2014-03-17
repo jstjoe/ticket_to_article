@@ -111,7 +111,8 @@
       .done(function(response){
         var sections = response.sections,
             categories = response.categories,
-            translations = response.translations;
+            translations = response.translations,
+            locales_all = [];
         _.each(categories, function(category) {
            category.sections = [];
           //add category titles to categories
@@ -132,7 +133,11 @@
               return obj.id == id;
             });
             section.translations.push(translation);
-            //console.log("Section translations: " + section.translations);
+            console.log(section.translations);
+            console.log(translation.locale);
+            locales_all.push(translation.locale);
+
+            
           });
           //add sections to categories
           var category = _.find(categories, function(obj) {
@@ -141,8 +146,14 @@
           category.sections.push(section);
           // console.log(category.sections);
         });
+        //get and process locales into array of unique values
+        console.log(locales_all);
+        var locales = _.uniq(locales_all);
+        console.log(locales);
+
         this.switchTo('article_options', {
-          categories: categories
+          categories: categories,
+          locales: locales
         });
         
       });
@@ -161,15 +172,15 @@
       this.$(".select_section").disabled = false;
       this.$(".select_section").removeClass("disabled");
     },
-    onOpenEditorClick: function(e) {
-      if (e) { e.preventDefault(); }
-      var title = encodeURIComponent(this.$('input.title').val());
-      var body = encodeURIComponent(this.$('textarea.show_comment').text());
-      var url = helpers.fmt('https://joeshelpcenter.zendesk.com/hc/admin/articles/new?title=%@&body=%@',title,body);
-      this.switchTo('editor_link', {
-        url: url
-      });
-    },
+    // onOpenEditorClick: function(e) {
+    //   if (e) { e.preventDefault(); }
+    //   var title = encodeURIComponent(this.$('input.title').val());
+    //   var body = encodeURIComponent(this.$('textarea.show_comment').text());
+    //   var url = helpers.fmt('https://joeshelpcenter.zendesk.com/hc/admin/articles/new?title=%@&body=%@',title,body);
+    //   this.switchTo('editor_link', {
+    //     url: url
+    //   });
+    // },
     onPostClick: function(e) {
       if (e) { e.preventDefault(); }
       var labels = '[]',
@@ -192,6 +203,7 @@
             translations = response.translations;
         // console.log("Base URL: " + postedArticle.html_url);
         postedArticle.admin_url = postedArticle.html_url.replace(/hc\/(.*?)\//gi, "hc/admin/");
+        postedArticle.edit_url = postedArticle.admin_url + helpers.fmt('/edit?translation_locale=%@', locale);
         // console.log("Admin URL: " + postedArticle.admin_url);
         services.notify(helpers.fmt("Success! Your article has been posted to Help Center. Click the <a href='%@/edit' target='blank'>edit link</a> to make changes.",postedArticle.admin_url));
         this.switchTo('show_article', {
