@@ -47,32 +47,48 @@ Pull requests are welcome, particularly to help refactor to improve performance,
 
 
 ## Screenshot(s):
-Default state
+Default state.
+
 ![](https://www.dropbox.com/s/djy9hv4e1hh6til/Screen%20Shot%202014-03-16%20at%2011.01.35%20PM.png)
 
-List public comments
+
+List public comments.
+
 ![](https://www.dropbox.com/s/4aefhlllszbhpbc/Screen%20Shot%202014-03-16%20at%2011.01.50%20PM.png)
 
-Comments expand slightly and get 10% alpha Zendesk green when hovered-over
+
+Comments expand slightly and get 10% alpha Zendesk green when hovered-over.
+
 ![](https://www.dropbox.com/s/l3zi8au2whe8y1x/Screen%20Shot%202014-03-16%20at%2011.02.01%20PM.png)
 
-See the Title and HTML content of the article-to-be
+
+See the Title and HTML content of the article-to-be.
+
 ![](https://www.dropbox.com/s/gnus8zheoxm9gu4/Screen%20Shot%202014-03-16%20at%2011.02.20%20PM.png)
 
+
 Edit the title from the placeholder default
+
 ![](https://www.dropbox.com/s/y7mygpbhbjmdd2k/Screen%20Shot%202014-03-16%20at%2011.02.39%20PM.png)
 
+
 Click 'Open Editor' to launch a larger editor in a modal. Copies changes already made in sidebar editor.
+
 ![](https://www.dropbox.com/s/33r3pi3prj749ap/Screen%20Shot%202014-03-16%20at%2011.03.18%20PM.png)
 
+
 Click 'Next...' to finish editing and proceed to the options panel and choose a section, locale, and options.
+
 ![](https://www.dropbox.com/s/101ezmwg9vk6kht/Screen%20Shot%202014-03-16%20at%2011.04.41%20PM.png)
 
 
 Click Post to Section to create the article in the selected section, then see the results.
+
 ![](https://www.dropbox.com/s/btvyfoxk5nb62ts/Screen%20Shot%202014-03-16%20at%2011.10.13%20PM.png)
 
+
 Click 'View' to see the article, or 'Edit' to open the editor, in Help Center.
+
 ![](https://www.dropbox.com/s/2uu0ccnr3d45q8h/Screen%20Shot%202014-03-16%20at%2011.10.27%20PM.png)
 
 
