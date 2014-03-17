@@ -49,42 +49,42 @@ Pull requests are welcome, particularly to help refactor to improve performance,
 ## Screenshot(s):
 Default state.
 
-![Imgur](http://i.imgur.com/Ugub0su)
+![Imgur](http://i.imgur.com/Ugub0su.png)
 
 
 List public comments.
 
-![Imgur](http://i.imgur.com/DH2umGa)
+![Imgur](http://i.imgur.com/DH2umGa.png)
 
 
 Comments expand slightly and get 10% alpha Zendesk green when hovered-over.
 
-![Imgur](http://i.imgur.com/BDX0A7c)
+![Imgur](http://i.imgur.com/BDX0A7c.png)
 
 
 See the Title and HTML content of the article-to-be.
 
-![Imgur](http://i.imgur.com/fXbr7Yx)
+![Imgur](http://i.imgur.com/fXbr7Yx.png)
 
 
 Edit the title from the placeholder default
 
-![Imgur](http://i.imgur.com/ZU7RkOj)
+![Imgur](http://i.imgur.com/ZU7RkOj.png)
 
 
 Click 'Open Editor' to launch a larger editor in a modal. Copies changes already made in sidebar editor.
 
-![Imgur](http://i.imgur.com/0wD2yka)
+![Imgur](http://i.imgur.com/0wD2yka.png)
 
 
 Click 'Next...' to finish editing and proceed to the options panel and choose a section, locale, and options.
 
-![Imgur](http://i.imgur.com/iIdCjFY)
+![Imgur](http://i.imgur.com/iIdCjFY.png)
 
 
 Click Post to Section to create the article in the selected section, then see the results.
 
-![Imgur](http://i.imgur.com/ONQRLaB)
+![Imgur](http://i.imgur.com/ONQRLaB.png)
 
 
 Click 'View' to see the article, or 'Edit' to open the editor, in Help Center.
