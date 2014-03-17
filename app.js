@@ -1,7 +1,7 @@
 (function() {
   return {
+    defaultState: 'default',
     events: {
-      'app.activated':'init',
       'click .default':function(e) {
         if (e) { e.preventDefault(); }
         this.ajax('getUser');
