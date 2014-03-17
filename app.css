@@ -34,6 +34,9 @@ li.comment:hover {
 }
 ul {
   margin: 0;
+  li.article_options {
+    margin-bottom:20px;
+  }
   li.actions {
     text-align: right;
   }
@@ -89,6 +92,11 @@ select.section {
 }
 ul.show_article {
   li {
+    ul {
+      li {
+        margin-left: 1.8em;
+      }
+    }
     div.property {
       display: inline-block;
       border: 1px solid gray;

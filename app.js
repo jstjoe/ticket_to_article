@@ -187,7 +187,7 @@
           draft = this.$('input.draft').prop("checked"),
           promoted = this.$('input.promoted').prop("checked"),
           comments_disabled = this.$('input.comments_disabled').prop("checked"),
-          locale = 'en-us', //this.$('input.locale').val();
+          locale = this.$('select.locale').val(), //or a setting for the default locale
           ticket_id = this.ticket().id(),
           default_title = helpers.fmt('From ticket #%@ via Ticket to Help Center App', ticket_id),
           title = (this.title || default_title),
