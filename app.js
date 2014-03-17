@@ -12,6 +12,7 @@
       'getComments.fail':'getCommentsFail',
       'click li.comment':'onCommentClick',
       'getSections.fail':'getSectionsFail',
+      'click #close_button':'copyModalContents',
       'click .done_editing':'onDoneEditingClick',
       'change #section_select':'onSectionSelected',
       'click .select_section':'onPostClick',
@@ -80,7 +81,7 @@
           users = data.users;
       _.each(comments, function(comment) {
         comment.created_at_local = new Date(comment.created_at).toLocaleString();
-        console.log(comment.created_at_local);
+        // console.log(comment.created_at_local);
       });
       this.switchTo('comments', {
         comments: comments,
@@ -90,7 +91,7 @@
     onCommentClick: function(e) {
       if (e) { e.preventDefault(); }
       //get available sections, and when that finishes switch to the show_comment template with the comment and sections
-      console.log(e.currentTarget.children[1]);
+      // console.log(e.currentTarget.children[1]);
       var id = e.currentTarget.children[1].id,
           innerHtml = e.currentTarget.children[1].innerHTML,
           comment = innerHtml,
@@ -99,6 +100,10 @@
           comment: comment,
           ticket_id: ticket_id
       });
+    },
+    copyModalContents: function(e) {
+      this.$("input.title").val(this.$("input#modal_title").val());
+      this.$("textarea.show_comment").val(this.$("textarea#modal_content").val());
     },
     onDoneEditingClick: function (e) {
       if (e) { e.preventDefault(); }
@@ -134,21 +139,25 @@
             return obj.id == section.category_id;
           });
           category.sections.push(section);
-          console.log(category.sections);
+          // console.log(category.sections);
         });
         this.switchTo('article_options', {
           categories: categories
         });
         
       });
-      // 
-      //grab the title and make it global too
-      this.title = this.$('input.title').val();
-      this.html = this.$('textarea.show_comment').val();
+      console.log(e);
+      if(e.currentTarget.id == "done_editing_modal") {
+        this.title = this.$('input#modal_title').val();
+        this.html = this.$('textarea#modal_content').val();
+      } else {
+        this.title = this.$('input.title').val();
+        this.html = this.$('textarea.show_comment').val();
+      }
     },
     onSectionSelected: function(e) {
       //this isn't getting called yet
-      console.log("clicked an option");
+      // console.log("clicked an option");
       this.$(".select_section").disabled = false;
       this.$(".select_section").removeClass("disabled");
     },
@@ -181,9 +190,9 @@
       .done(function(response){
         var postedArticle = response.article,
             translations = response.translations;
-        console.log("Base URL: " + postedArticle.html_url);
+        // console.log("Base URL: " + postedArticle.html_url);
         postedArticle.admin_url = postedArticle.html_url.replace(/hc\/(.*?)\//gi, "hc/admin/");
-        console.log("Admin URL: " + postedArticle.admin_url);
+        // console.log("Admin URL: " + postedArticle.admin_url);
         services.notify(helpers.fmt("Success! Your article has been posted to Help Center. Click the <a href='%@/edit' target='blank'>edit link</a> to make changes.",postedArticle.admin_url));
         this.switchTo('show_article', {
           article: postedArticle,
@@ -192,6 +201,8 @@
       });
     },
     showModal: function() {
+      this.$("input#modal_title").val(this.$("input.title").val());
+      this.$("textarea#modal_content").val(this.$("textarea.show_comment").val());
       this.$('#modal').modal('show');
     },
     getUserFail: function(data) {
