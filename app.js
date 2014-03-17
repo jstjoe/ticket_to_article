@@ -205,7 +205,7 @@
         postedArticle.admin_url = postedArticle.html_url.replace(/hc\/(.*?)\//gi, "hc/admin/");
         postedArticle.edit_url = postedArticle.admin_url + helpers.fmt('/edit?translation_locale=%@', locale);
         // console.log("Admin URL: " + postedArticle.admin_url);
-        services.notify(helpers.fmt("Success! Your article has been posted to Help Center. Click the <a href='%@/edit' target='blank'>edit link</a> to make changes.",postedArticle.admin_url));
+        services.notify(helpers.fmt("Success! Your article has been posted to Help Center. Click the <a href='%@' target='blank'>edit link</a> to make changes.",postedArticle.edit_url));
         this.switchTo('show_article', {
           article: postedArticle,
           translations: translations
