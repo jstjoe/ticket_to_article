@@ -2,7 +2,7 @@
 
 # Ticket to Help Center App
 
-## Requires Help Center API Beta Access
+## Requires [Help Center API Beta Access](https://zendesk.wufoo.com/forms/help-center-api-beta-sign-up/)
 
 ## Description:
 
