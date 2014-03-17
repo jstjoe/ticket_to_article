@@ -31,9 +31,7 @@ Installation
 3. Click on the "Ticket to Help Center" app.
 
 
-
 * **Restrict to Moderators:** If checked the App will only work for users with Help Center Moderator privileges.
-* **Email-Brand mapping JSON:** A valid JSON object that maps your brand (kingdom) with an email address, in our case, it could look like this:
 
 ## Contribution:
 
