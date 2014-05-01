@@ -1,4 +1,5 @@
-:warning: *Use of this software is subject to important terms and conditions as set forth in the License file* :warning:
+# Deprecated
+The latest version of this app can now be found in ZendeskLabs: https://github.com/zendesklabs/satisfaction_console
 
 # Ticket to Help Center App
 
