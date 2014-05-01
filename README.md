@@ -1,5 +1,5 @@
 # Deprecated
-The latest version of this app can now be found in ZendeskLabs: https://github.com/zendesklabs/satisfaction_console
+The latest version of this app can now be found in ZendeskLabs: https://github.com/zendesklabs/ticket_to_helpcenter
 
 # Ticket to Help Center App
 
